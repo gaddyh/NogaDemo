@@ -12,7 +12,9 @@ adjust the _DefaultConnection_ property.
 
 2. The Endpoints you configure in .net must match the ones in angular. There are 3 endpoints, for customers, contacts and addresses.
    These endpoints are defined in app/customer.service.ts
-4. 
+
+<h2>Images</h2>
+
 ![image](https://github.com/gaddyh/NogaDemo/assets/16175616/9810b767-784e-4c69-b460-bf31f8031e35)
 
 ![image](https://github.com/gaddyh/NogaDemo/assets/16175616/6675f138-5e03-4bb3-adb9-50aae41c6c7c)
