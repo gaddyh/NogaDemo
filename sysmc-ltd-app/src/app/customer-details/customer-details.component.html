@@ -1,0 +1,140 @@
+<div class="customer-detail">
+    <h3> Customer</h3>
+      
+    <div class="card">
+        <p>ID: <b> {{ customer.id }}</b></p>
+        <p>Is Deleted: <b><span *ngIf="!customerEdit">{{ customer.isDeleted }}</span></b>
+            <input *ngIf="customerEdit" type="checkbox" [(ngModel)]="customer.isDeleted" name="isDeleted"></p>
+        <p>Created: <b> {{ customer.created | date }}</b></p>
+        
+        <p><b>Name:</b> 
+            <span *ngIf="!customerEdit">{{ customer.name }}</span>
+            <input *ngIf="customerEdit" type="text" [formControl]="nameControl" >
+            <span *ngIf="customerEdit && nameControl.invalid && nameControl.errors?.['required']">
+                Name is required.
+            </span>
+        </p>
+    
+        
+            <p><b>Customer Number:</b>
+                <span *ngIf="!customerEdit">{{ customer.customerNumber }}</span>
+                <input *ngIf="customerEdit" type="text" [formControl]="customerNumberControl">
+                <span *ngIf="customerEdit && customerNumberControl.invalid && customerNumberControl.errors?.['pattern']">
+                    Number must be exactly 9 digits.
+                </span>
+            </p>
+
+            <button *ngIf="customerEdit" (click)="updateCustomer()">Update Customer</button>
+        <div><input type="checkbox" [(ngModel)]="customerEdit"> Edit</div>
+    </div>
+
+    <h3>Contacts
+        <button mat-icon-button (click)="addContact()">
+            <mat-icon>add</mat-icon>
+          </button>
+    </h3>
+    <div class="card">
+        <table>
+            <colgroup>
+                <col style="width: auto;"> <!-- ID -->
+                <col style="width: auto;"> <!-- Is Deleted -->
+                <col style="width: auto;"> <!-- Created -->
+                <col style="width: auto;"> <!-- Full Name -->
+                <col style="width: auto;"> <!-- Office Number -->
+                <col style="width: 20%;">   <!-- Email -->
+                <col style="width: auto;"> <!-- Edit -->
+              </colgroup>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Is Deleted</th>
+                <th>Created</th>
+                <th>Full Name</th>
+                <th>Office Number</th>
+                <th>Email</th>
+                <th>CustomerId</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+            <tr *ngFor="let contact of contacts; let i = index">
+                <td>{{ contact.id }}</td>
+                <td>
+                    <span *ngIf="!contactEdit[i]">{{ contact.isDeleted }}</span>
+                    <input *ngIf="contactEdit[i]" type="checkbox" [(ngModel)]="contact.isDeleted" name="isDeleted{{i}}">
+                </td>
+                <td>{{ contact.created | date }}</td>
+                <td>
+                    <span *ngIf="!contactEdit[i]">{{ contact.fullName }}</span>
+                    <input class="table-container" *ngIf="contactEdit[i]" [(ngModel)]="contact.fullName" name="fullName{{i}}">
+                </td>
+                <td>
+                    <span *ngIf="!contactEdit[i]">{{ contact.officeNumber }}</span>
+                    <input *ngIf="contactEdit[i]" [(ngModel)]="contact.officeNumber" name="officeNumber{{i}}">
+                </td>
+                <td>
+                    <span *ngIf="!contactEdit[i]">{{ contact.email }}</span>
+                    <input class="table-container" *ngIf="contactEdit[i]" [(ngModel)]="contact.email" name="email{{i}}"
+                            >
+
+                    </td>
+                    <td>{{ contact.customerId }}</td>
+                    <td>
+                        <input type="checkbox" [(ngModel)]="contactEdit[i]"> Edit
+                        <button *ngIf="contactEdit[i]" (click)="updateContact(contact, i)" [disabled]="!contactEdit[i]">Update</button>
+                    </td>
+            </tr>
+        </table>
+    </div>
+
+
+<h3>Addresses
+    <button mat-icon-button (click)="addAddress()">
+        <mat-icon>add</mat-icon>
+      </button>
+</h3>
+<div class="card">
+    <table>
+        <colgroup>
+            <col style="width: auto;"> <!-- ID -->
+            <col style="width: auto;"> <!-- Is Deleted -->
+            <col style="width: auto;"> <!-- Created -->
+            <col style="width: auto;"> <!-- City -->
+            <col style="width: auto;"> <!-- Street -->
+            <col style="width: auto;"> <!-- CustomerId -->
+            <col style="width: auto;"> <!-- Edit -->
+        </colgroup>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Is Deleted</th>
+                <th>Created</th>
+                <th>City</th>
+                <th>Street</th>
+                <th>CustomerId</th>
+                <th>Edit</th>
+            </tr>
+        </thead>
+            <tr *ngFor="let address of addresses; let i = index">
+                <td>{{ address.id }}</td>
+                <td>
+                    <span *ngIf="!addressEdit[i]">{{ address.isDeleted }}</span>
+                    <input *ngIf="addressEdit[i]" type="checkbox" [(ngModel)]="address.isDeleted" name="isDeleted{{i}}">
+                </td>
+                <td>{{ address.created | date }}</td>
+                <td>
+                    <span *ngIf="!addressEdit[i]">{{ address.city }}</span>
+                    <input *ngIf="addressEdit[i]" [(ngModel)]="address.city" name="city{{i}}">
+                </td>
+                <td>
+                    <span *ngIf="!addressEdit[i]">{{ address.street }}</span>
+                    <input *ngIf="addressEdit[i]" [(ngModel)]="address.street" name="street{{i}}">
+                </td>
+                <td>{{ address.customerId }}</td>
+                <td>
+                    <input type="checkbox" [(ngModel)]="addressEdit[i]"> Edit
+                    <button *ngIf="addressEdit[i]" (click)="updateAddress(address, i)" [disabled]="!addressEdit[i]">Update</button>
+                </td>
+            </tr>
+    </table>
+</div>
+</div>
